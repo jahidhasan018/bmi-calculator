@@ -100,8 +100,8 @@
         // Run on click event listener when click on the calculate button
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const weight = parseFloat(weightInput.value);
-            const height = parseFloat(heightInput.value);
+            const weight = Number(weightInput.value);
+            const height = Number(heightInput.value);
 
             // Formula and show the result
             if (weight && height) {
