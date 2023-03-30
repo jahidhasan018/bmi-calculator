@@ -97,11 +97,6 @@
         const heightInput = document.getElementById('heightInput');
         const result = document.getElementById('result');
 
-        // Helper function to convert to number
-        function parseToNumber($value) {
-            return parseFloat($value);
-        }
-
         // Run on click event listener when click on the calculate button
         btn.addEventListener('click', (e) => {
             e.preventDefault();
@@ -111,7 +106,7 @@
             // Formula and show the result
             if (weight && height) {
                 const bmi = weight / (height * height);
-                const toNumber = Math.round(bmi.toFixed(2) * 100) / 100;
+                const toNumber = Number(bmi.toFixed(2));
 
                 // Add css style to the result depending on BMI value
                 let bmiCategory = '';
