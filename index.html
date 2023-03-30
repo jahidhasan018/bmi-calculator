@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .form-container {
+            padding: 20px;
+            border: 2px solid #9b4dca;
+            border-radius: 3px;
+            max-width: 80rem;
+            margin: 0 auto;
+            margin-top: 10rem;
+            background-image: url('https://cdn.mos.cms.futurecdn.net/LYsmRH9vo2YB8jt8NFEPJo-970-80.jpg.webp');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            min-height: 100%;
+            box-shadow: inset 0 0 0 2000px rgb(0 0 0 / 55%);
+            color: #fff;
+        }
+
+        .bmi-categories {
+            padding: 2rem;
+            background-color: #ffffffa8;
+            color: #000;
+            max-width: 30rem;
+            line-height: 1;
+            border-radius: 3px;
+            margin-bottom: 3rem;
+        }
+
+        form#bmi-calculator {
+            border: 1px solid silver;
+            padding: 10px;
+            margin-bottom: 0px;
+        }
+
+        fieldset {
+            margin-bottom: 0;
+        }
+
+        div#result {
+            font-size: 21px;
+        }
+
+        input {
+            background-color: #fff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <h2>BMI Calculator</h2>
+            <div class="bmi-categories">
+                <h4>BMI Categories:</h4>
+                <ul>
+                    <li>Underweight = <18.5 </li>
+                    <li>Normal weight=18.5–24.9</li>
+                    <li>Overweight=25–29.9</li>
+                    <li>Obesity=BMI of 30 or greater</li>
+                </ul>
+                <div id="result"></div>
+            </div>
+
+            <form id="bmi-calculator">
+                <fieldset>
+                    <label for="nameField">Your Weight</label>
+                    <input type="text" placeholder="kg" id="weightInput">
+
+                    <label for="nameField">Your Height</label>
+                    <input type="text" placeholder="meeter" id="heightInput">
+
+                    <button type="submit" class="button-primary" id="calculateBtn">Calculate</button>
+                </fieldset>
+            </form>
+        </div>
+    </div>
+    <script>
+        // The BMI formula is: BMI = weight (kg) / (height (m) * height (m)).
+
+        const btn = document.getElementById('calculateBtn');
+        const weightInput = document.getElementById('weightInput');
+        const heightInput = document.getElementById('heightInput');
+        const result = document.getElementById('result');
+
+        // Helper function to convert to number
+        function parseToNumber($value) {
+            return parseFloat($value);
+        }
+
+        // Run on click event listener when click on the calculate button
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const weight = parseFloat(weightInput.value);
+            const height = parseFloat(heightInput.value);
+
+            // Formula and show the result
+            if (weight && height) {
+                const bmi = weight / (height * height);
+                const toNumber = Math.round(bmi.toFixed(2) * 100) / 100;
+
+                // Add css style to the result depending on BMI value
+                let bmiCategory = '';
+
+                if (toNumber <= 18.5 || toNumber > 29.9) {
+                    result.style.color = '#BC2020';
+                    bmiCategory = (toNumber <= 18.5) ? "Underweight" : "Obesity";
+                } else if (toNumber > 25 && toNumber < 29.9) {
+                    result.style.color = '#FFE400';
+                    bmiCategory = "Overweight";
+                } else {
+                    result.style.color = '#008137';
+                    bmiCategory = "Normal";
+                }
+
+                // Show the resutl inside #result div document
+                result.innerHTML = `Your BMI is: <br> <strong>${toNumber} - ${bmiCategory}</strong>`;
+            } else {
+                result.innerHTML = `Input shuldn't be empty`;
+            }
+        })
+
+    </script>
+</body>
+
+</html>
